@@ -1,0 +1,37 @@
+-- database: ./database.db
+
+-- Use the ▷ button in the top right corner to run the entire file.
+
+SELECT * FROM Bikes;
+
+-- Yamaha
+INSERT INTO Bikes(Model,TopSpeed,Cost,Description) VALUES('YZF-R3',112,5499,'A lightweight supersport with sleek R-series styling, featuring a high-revving 321cc engine and nimble handling for entry-level racing enthusiasts.');
+INSERT INTO Bikes(Model,TopSpeed,Cost,Description) VALUES('XSR700',125,8899,'A stylish neo-retro machine that blends vintage "Faster Sons" aesthetics with the punchy, modern performance of Yamaha’s CP2 engine platform.');
+INSERT INTO Bikes(Model,TopSpeed,Cost,Description) VALUES('MT-07',133,8299,'The ultimate urban torque master, this naked bike offers a minimalist design and a crossplane engine known for its wheelie-prone, fun power delivery.');
+
+-- Suzuki
+INSERT INTO Bikes(Model,TopSpeed,Cost,Description) VALUES('GSX250R',85,5099,'An approachable sportbike with full-fairing styling and a fuel-efficient twin-cylinder engine, designed for daily commutes and beginner confidence.');
+INSERT INTO Bikes(Model,TopSpeed,Cost,Description) VALUES('SV650',130,7399,'A legendary V-twin middleweight that offers a timeless trellis frame design and a versatile powerband loved by commuters and track-day riders alike.');
+INSERT INTO Bikes(Model,TopSpeed,Cost,Description) VALUES('GSX-8S',130,8999,'A modern, sharp-edged streetfighter powered by a new 776cc parallel-twin, featuring advanced electronics and a balanced, high-performance chassis.');
+
+-- Kawasaki
+INSERT INTO Bikes(Model,TopSpeed,Cost,Description) VALUES('Ninja 500',118,5299,'The successor to the Ninja 400, offering more torque and a larger displacement while maintaining the lightweight agility the Ninja line is famous for.');
+INSERT INTO Bikes(Model,TopSpeed,Cost,Description) VALUES('Z400',105,5399,'A compact Sugomi-styled naked bike that provides a raw, exposed look with the same punchy heart as the Ninja 400 for better city maneuverability.');
+INSERT INTO Bikes(Model,TopSpeed,Cost,Description) VALUES('Ninja ZX-4RR',151,9899,'A high-performance, small-displacement screamer featuring a 16,000 RPM inline-four engine and race-spec suspension for serious track enthusiasts.');
+
+-- Honda
+INSERT INTO Bikes(Model,TopSpeed,Cost,Description) VALUES('CBR500R',115,7399,'An aggressive-looking sportbike that remains user-friendly, offering a linear power delivery and refined ergonomics for longer highway journeys.');
+INSERT INTO Bikes(Model,TopSpeed,Cost,Description) VALUES('CB300R',95,5149,'A "Neo-Sports Café" lightweight naked bike that uses a minimalist, industrial design and a punchy single-cylinder engine for effortless city riding.');
+INSERT INTO Bikes(Model,TopSpeed,Cost,Description) VALUES('Grom',59,3599,'The iconic pocket-sized motorcycle known for its incredible fuel economy, ease of use, and a massive cult following centered around pure fun.');
+
+-- all bikes
+SELECT * FROM Bikes;
+
+--all bikes and the maker
+SELECT Makers.Name,Bikes.Model FROM Bikes
+JOIN Makers ON Makers.MakerID=Bikes.MakerID;
+
+--bikes of one make
+SELECT Bikes.Model FROM Bikes
+JOIN Makers ON Maker.MakerID=Bikes.MakerID
+WHERE Makers.Name="Yamaha";
