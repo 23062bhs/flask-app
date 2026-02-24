@@ -24,17 +24,27 @@ def query_db(query, args=(), one=False):
     cur.close()
     return (rv[0] if rv else None) if one else rv
 
-app = Flask(__name__)
-
 @app.route('/')
 def home():
     #home page - just the ID, Maker, Model and Image URL
     sql = """
             SELECT Bikes.BikeID,Makers.Name,Bikes.Model,Bikes.ImageURL
             FROM Bikes 
-            JOIN Makers ON Makers.MakerID=Bikes.MakerID;"""
+            JOIN Makers ON Makers.MakerID=Bikes.MakerID;
+        """
     results = query_db(sql)
     return render_template("home.html",results=results)
+
+@app.route("/maker/<maker_name>")
+def maker(maker_name):
+    sql = """
+            SELECT Bikes.BikeID, Makers.Name, Bikes.Model, Bikes.ImageURL
+            FROM Bikes
+            JOIN Makers ON Makers.MakerID = Bikes.MakerID
+            WHERE Makers.Name = ?;
+        """
+    results = query_db(sql, (maker_name,))
+    return render_template("home.html", results=results)
 
 @app.route("/bike/<int:id>")
 def bike(id):
@@ -42,8 +52,10 @@ def bike(id):
     sql = """
             SELECT * FROM Bikes 
             JOIN Makers ON Makers.MakerID=Bikes.MakerID
-            WHERE Bikes.BikeID = ?;"""
+            WHERE Bikes.BikeID = ?;
+        """
     result = query_db(sql,(id,),True)
     return render_template("bike.html", bike=result)
 if __name__ == "__main__":
     app.run(debug=True)
+
